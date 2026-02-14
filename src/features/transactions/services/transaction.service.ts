@@ -5,6 +5,10 @@ export async function getAllTransactions() {
   return repository.getAll();
 }
 
+export async function getTransactionById(id: string) {
+  return repository.findById(id);
+}
+
 export async function filterByCategory(category: string) {
   const transactions = await repository.getAll();
   return transactions.filter((t) => t.category === category);

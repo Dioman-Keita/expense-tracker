@@ -17,6 +17,10 @@ export async function createTransaction(data: FormData) {
   const transactionType: TransactionType =
     typeEntry === "expense" || typeEntry === "income" ? typeEntry : "expense";
 
+  const descriptionEntry = data.get("description");
+  const description =
+    typeof descriptionEntry === "string" ? descriptionEntry : "";
+
   const toDay = new Date();
 
   await repository.create({
@@ -26,5 +30,6 @@ export async function createTransaction(data: FormData) {
     type: transactionType,
     category,
     date: toDay,
+    description,
   });
 }

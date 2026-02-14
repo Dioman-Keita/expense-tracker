@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "@/src/lib/storage/fileStorage";
+import { readFile, writeFile } from "@lib/storage/fileStorage";
 import { Transaction } from "../type";
 
 export async function getAll(): Promise<Transaction[]> {
