@@ -1,31 +1,19 @@
 import Container from "./container";
 import { AddButton } from "@components/ui/button";
-import Link from "next/link";
-import { Wallet } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="sticky top z-50 w-full border-b bg-white/80 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between">
-        {/* Logo / Home link */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-zinc-900"
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-900 text-white">
-            <Wallet size={18} />
-          </div>
-        </Link>
-        {/* Navigation & Actions */}
-        <nav className="flex items-center gap-4">
-          <Link
-            href="/transactions"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 transition-colors"
-          >
-            History
-          </Link>
-          <AddButton size="sm">Ajouter une nouvelle transaction</AddButton>
-        </nav>
+    <header className="sticky top z-50 bg-white/80 backdrop-blur-md mt-6 ml-20">
+      <Container className="flex items-center justify-between gap-10">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
+            Trableau de bord
+          </h1>
+          <p className="text-zinc-500">Gérez vos finances simplement.</p>
+        </div>
+        <div>
+          <AddButton>Ajouter une transaction</AddButton>
+        </div>
       </Container>
     </header>
   );

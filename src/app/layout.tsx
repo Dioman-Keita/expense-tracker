@@ -1,5 +1,6 @@
 import { roboto } from "@lib/font";
-import Container from "@components/layout/container";
+import Navbar from "@components/layout/navbar";
+import Header from "@components/layout/header";
 import "@styles/globals.css";
 export default function RootLayout({
   children,
@@ -8,7 +9,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <Header />
+        <Navbar />
+        <main className="pl-24 pr-6 py-12">{children}</main>
+      </body>
     </html>
   );
 }
