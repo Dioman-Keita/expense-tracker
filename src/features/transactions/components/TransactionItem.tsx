@@ -1,5 +1,5 @@
 import { formatCurrency } from "@utils/formatCurrency";
-import { ArrowUpCircle, ArrowDownCircle, Tag } from "lucide-react";
+import { ArrowUpCircle, ArrowDownCircle, Tag, Link } from "lucide-react";
 import { DeleteButton } from "@components/ui/button";
 import { deleteTransaction } from "../actions/deleteTransaction";
 import { cn } from "@lib/utils";
@@ -22,7 +22,12 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
           )}
         </div>
         <div>
-          <p className="font-medium text-zinc-900">{transaction.label}</p>
+          <Link
+            href={`/transactions/${transaction.id}`}
+            className="hover:underline"
+          >
+            <p className="font-medium text-zinc-900">{transaction.label}</p>
+          </Link>
           <div className="flex items-center gap-2 text-xs text-zinc-500">
             <Tag size={12} />
             <span>.</span>
