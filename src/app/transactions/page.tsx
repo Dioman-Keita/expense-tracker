@@ -6,6 +6,7 @@ import { Input } from "@components/ui/input";
 
 export default async function AllTranscationsPage() {
   const transactions = await getAllTransactions();
+  console.log(transactions);
 
   return (
     <Container className="space-y-6">
