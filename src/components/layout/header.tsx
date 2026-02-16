@@ -7,7 +7,7 @@ export default function Header() {
       <Container className="flex items-center justify-between gap-10">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
-            Trableau de bord
+            Tableau de bord
           </h1>
           <p className="text-zinc-500">Gérez vos finances simplement.</p>
         </div>

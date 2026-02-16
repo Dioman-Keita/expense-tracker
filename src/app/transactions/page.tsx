@@ -1,28 +1,30 @@
-import { getAllTransactions } from "../../features/transactions/services/transaction.service";
+import Container from "@components/layout/container";
+import { getAllTransactions } from "@features/transactions/services/transaction.service";
+import { TransactionList } from "@features/transactions/components/TransactionList";
+import { Search } from "lucide-react";
+import { Input } from "@components/ui/input";
 
-export default async function TransactionsPage() {
+export default async function AllTranscationsPage() {
   const transactions = await getAllTransactions();
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 p-8">
-      <h1 className="text-2xl font-bold mb-6">Transactions</h1>
-      <div className="space-y-4">
-        {transactions.map((t) => (
-          <div
-            key={t.id}
-            className="flex justify-between bg-white p-4 rounded-lg shadow"
-          >
-            <span>{t.label}</span>
-            <span
-              className={
-                t.type === "income" ? "text-green-600" : "text-red-600"
-              }
-            >
-              {t.amount} €
-            </span>
-          </div>
-        ))}
+    <Container className="space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-xl font-bold">Historique des opérations</h2>
+          <p className="text-zinc-500 text-sm">
+            {transactions.length} transactions au total
+          </p>
+        </div>
+        <div className="relative">
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            size={18}
+          />
+          <Input className="pl-10" placeholder="Rechercher une dépense..." />
+        </div>
       </div>
-    </div>
+      <TransactionList transactions={transactions} />
+    </Container>
   );
 }
