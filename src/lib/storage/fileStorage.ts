@@ -14,5 +14,12 @@ export async function readFile(): Promise<any[]> {
 }
 
 export async function writeFile(data: any[]): Promise<void> {
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  try {
+    const dirPath = path.dirname(filePath);
+    await fs.mkdir(dirPath, { recursive: true });
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error("Error writing file : ", error);
+    throw new Error("Unable to save data.");
+  }
 }
