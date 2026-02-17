@@ -14,7 +14,7 @@ interface Props {
 
 export default async function TransactionDetailPage({ params }: Props) {
   const { id } = await params;
-  const transaction = (await getTransactionById(id)) as Transaction;
+  const transaction = await getTransactionById(id);
 
   if (!transaction) {
     notFound();
@@ -105,7 +105,7 @@ export default async function TransactionDetailPage({ params }: Props) {
               </span>
             </div>
 
-            {(transaction as any).description && (
+            {transaction.description && (
               <div className="flex flex-col gap-3 pt-4 border-t border-zinc-50">
                 <div className="flex items-center gap-3 text-zinc-500">
                   <FileText size={18} />
@@ -114,7 +114,7 @@ export default async function TransactionDetailPage({ params }: Props) {
                   </span>
                 </div>
                 <div className="p-4 bg-zinc-50 rounded-xl text-zinc-600 text-sm leading-relaxed italic">
-                  "{(transaction as any).description}"
+                  "{transaction.description}"
                 </div>
               </div>
             )}
