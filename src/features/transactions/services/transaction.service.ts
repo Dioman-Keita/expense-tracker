@@ -39,25 +39,31 @@ export async function getTotalExpense() {
   return transactions.reduce((acc, curr) => acc + curr.amount, 0);
 }
 
-export async function getPaginatedTransactions(
-  page: number = 1,
-  limit: number = 5,
-) {
-  const allTransactions = await repository.getAll();
-  const sorted = allTransactions.sort(
+export async function getPaginatedTransactions({
+  page = 1,
+  limit = 5,
+  query = "",
+  type = "all",
+  category = "all",
+}) {
+  const all = await getAllTransactions();
+
+  const filtered = all.filter((t) => {
+    const matchesQuery = t.label
+      ? t.label.toLowerCase().includes(query.toLowerCase())
+      : "all";
+    const matchesType = type === "all" || t.type === type;
+    const matchesCategory = category === "all" || t.category === category;
+    return matchesQuery && matchesType && matchesCategory;
+  });
+
+  filtered.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   const startIndex = (page - 1) * limit;
-  const endIndex = startIndex + limit;
+  const totalPages = Math.ceil(filtered.length / limit);
+  const data = filtered.slice(startIndex, startIndex + limit);
 
-  const totalPages = Math.ceil(sorted.length / limit);
-  const data = sorted.slice(startIndex, endIndex);
-
-  return {
-    data,
-    totalPages,
-    currentPage: page,
-    totalCount: sorted.length,
-  };
+  return { data, totalPages, totalCount: filtered.length };
 }
