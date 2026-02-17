@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Expense Tracker - Next.js 15
 
-## Getting Started
+Une application moderne de gestion de finances personnelles construite avec **Next.js 15**, **Tailwind CSS** et une architecture **Server-First**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Fonctionnalités
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Tableau de Bord Dynamique** : Visualisation du solde total, des revenus et des dépenses.
+- **Gestion Complète des Transactions** :
+  - Ajout rapide via une modale interactive (React Portal).
+  - Page dédiée pour les nouveaux enregistrements.
+  - Suppression avec mise à jour instantanée de l’UI (revalidation du cache).
+- **Navigation Immersive** : "Magic Navbar" flottante avec effet morphing au survol.
+- **Historique Avancé** :
+  - Recherche textuelle en temps réel.
+  - Filtrage par type (Revenu/Dépense) et par catégorie via les URL SearchParams.
+  - Pagination côté serveur pour des performances optimales.
+- **Exportation de Données** : Génération et téléchargement de fichiers CSV via une API Route personnalisée.
+- **Feedback Utilisateur** : Notifications toast (Sonner) et états de chargement automatiques.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Stack Technique
 
-## Learn More
+- Framework : Next.js 15 (App Router)
+- Langage : TypeScript
+- Style : Tailwind CSS
+- Icônes : Lucide React
+- Notifications : Sonner
+- Stockage : Système de fichiers local (JSON) — aucune base de données requise en développement local
+- Package Manager : Bun
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Installation et Lancement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Cloner le projet
 
-## Deploy on Vercel
+    git clone https://github.com/votre-username/expense-tracker.git
+    cd expense-tracker
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Installer les dépendances
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    bun install
+
+### 3. Lancer le serveur de développement
+
+    bun dev
+
+L’application est disponible sur :
+http://localhost:3000
+
+---
+
+## 🏗️ Architecture
+
+Le projet suit une Clean Architecture pour séparer les responsabilités :
+
+- src/app : Routes, pages et API.
+- src/features : Logique métier regroupée par domaine (Transactions).
+- src/components/ui : Composants UI atomiques et réutilisables.
+- src/lib/storage : Couche d’accès aux données (File System).
