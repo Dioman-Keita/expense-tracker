@@ -1,5 +1,6 @@
 import Container from "@components/layout/container";
 import { TransactionForm } from "@features/transactions/components/TransactionForm";
+import { Card, CardContent } from "@components/ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -13,7 +14,11 @@ export default function NewTransactionPage() {
         <ArrowLeft size={16} />
         Annuler et retourner
       </Link>
-      <TransactionForm />
+      <Card className="max-w-md mx-auto border border-zinc-200 shadow-2xl bg-white rounded-[2.5rem] overflow-hidden">
+        <CardContent className="pt-10 pb-8 px-8">
+          <TransactionForm />
+        </CardContent>
+      </Card>
     </Container>
   );
 }
