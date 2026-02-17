@@ -2,6 +2,7 @@
 
 import * as repository from "../repositories/transaction.repository";
 import { TransactionType } from "../type";
+import { revalidatePath } from "next/cache";
 
 export async function createTransaction(data: FormData) {
   const labelEntry = data.get("label");
@@ -33,3 +34,6 @@ export async function createTransaction(data: FormData) {
     description,
   });
 }
+
+revalidatePath("/");
+revalidatePath("/transactions");

@@ -1,13 +1,27 @@
 import Container from "@components/layout/container";
-import { getAllTransactions } from "@features/transactions/services/transaction.service";
+import {
+  getAllTransactions,
+  getPaginatedTransactions,
+} from "@features/transactions/services/transaction.service";
 import { TransactionList } from "@features/transactions/components/TransactionList";
+import { Pagination } from "@components/ui/pagination";
 import { Search } from "lucide-react";
 import { Input } from "@components/ui/input";
 
-export default async function AllTranscationsPage() {
-  const transactions = await getAllTransactions();
-  console.log(transactions);
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
 
+export default async function AllTranscationsPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
+  const limit = 5;
+
+  const { data, totalPages } = await getPaginatedTransactions(
+    currentPage,
+    limit,
+  );
+  const transactions = await getAllTransactions();
   return (
     <Container className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -25,7 +39,9 @@ export default async function AllTranscationsPage() {
           <Input className="pl-10" placeholder="Rechercher une dépense..." />
         </div>
       </div>
-      <TransactionList transactions={transactions} />
+
+      <TransactionList transactions={data} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </Container>
   );
 }

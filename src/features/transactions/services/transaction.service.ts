@@ -38,3 +38,26 @@ export async function getTotalExpense() {
   const transactions = await filterByType("expense");
   return transactions.reduce((acc, curr) => acc + curr.amount, 0);
 }
+
+export async function getPaginatedTransactions(
+  page: number = 1,
+  limit: number = 5,
+) {
+  const allTransactions = await repository.getAll();
+  const sorted = allTransactions.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  const totalPages = Math.ceil(sorted.length / limit);
+  const data = sorted.slice(startIndex, endIndex);
+
+  return {
+    data,
+    totalPages,
+    currentPage: page,
+    totalCount: sorted.length,
+  };
+}
