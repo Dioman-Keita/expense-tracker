@@ -1,3 +1,6 @@
+"use client";
+
+import { useFormStatus } from "react-dom";
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
 import { cn } from "@lib/utils";
 import {
@@ -35,6 +38,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    const { pending } = useFormStatus();
+    const activeLoading = isLoading || pending;
     const baseStyles =
       "inline-flex items-center justify-center rounded-md transition-all font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]";
 
@@ -61,10 +66,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(baseStyles, variants[variant], sizes[size], className)}
-        disabled={isLoading || disabled}
+        disabled={activeLoading || disabled}
         {...props}
       >
-        {isLoading ? (
+        {activeLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
           <>
