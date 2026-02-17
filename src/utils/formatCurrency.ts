@@ -7,5 +7,4 @@ export function formatCurrency(
     style: "currency",
     currency,
   }).format(amount);
-  console.log('Haoussa');
 }
